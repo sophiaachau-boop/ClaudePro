@@ -1,3 +1,4 @@
 __pycache__/
 *.pyc
 master_daily_jobs.csv
+ats_daily_jobs.csv
