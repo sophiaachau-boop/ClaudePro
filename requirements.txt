@@ -1,2 +1,5 @@
 python-jobspy
 pandas
+anthropic
+requests
+python-dotenv

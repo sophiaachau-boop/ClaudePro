@@ -1,3 +1,8 @@
 __pycache__/
 *.pyc
 master_daily_jobs.csv
+
+.env
+*.db
+__pycache__/
+*.log
