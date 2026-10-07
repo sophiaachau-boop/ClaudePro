@@ -200,7 +200,7 @@ def evaluate_job(client, job: dict) -> dict:
                 f"LOCATION: {job['location']}\nSALARY: {job['salary']}\n"
                 f"URL: {job['url']}\n\nDESCRIPTION:\n{job['description']}")
     resp = client.messages.create(
-        model=MODEL, max_tokens=700, temperature=0.0, system=SYSTEM_PROMPT,
+        model=MODEL, max_tokens=700, extra_body={"temperature": 0.0}, system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user_msg},
                   {"role": "assistant", "content": "{"}],  # prefill forces JSON
     )

@@ -20,7 +20,7 @@ if os.getenv("ANTHROPIC_API_KEY", "").strip():
         import anthropic
         from job_agent import MODEL
         resp = anthropic.Anthropic().messages.create(
-            model=MODEL, max_tokens=5, temperature=0.0,
+            model=MODEL, max_tokens=5, extra_body={"temperature": 0.0},
             messages=[{"role": "user", "content": "Say hi"}])
         print(f"    [✓] {MODEL} replied: {resp.content[0].text!r}")
     except Exception as exc:
