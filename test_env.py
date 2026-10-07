@@ -17,9 +17,8 @@ for key in REQUIRED:
 print("[2] Claude ping")
 if os.getenv("ANTHROPIC_API_KEY", "").strip():
     try:
-        import anthropic
-        from job_agent import MODEL
-        resp = anthropic.Anthropic().messages.create(
+        from job_agent import MODEL, make_client
+        resp = make_client().messages.create(
             model=MODEL, max_tokens=5, extra_body={"temperature": 0.0},
             messages=[{"role": "user", "content": "Say hi"}])
         print(f"    [✓] {MODEL} replied: {resp.content[0].text!r}")

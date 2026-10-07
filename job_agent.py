@@ -70,6 +70,17 @@ Return ONLY a JSON object with exactly this schema:
 Use "Not listed" when salary or location is not stated."""
 
 
+def make_client():
+    """Anthropic client; adds the workspace header when the key isn't workspace-scoped."""
+    import anthropic
+
+    headers = {}
+    workspace = os.getenv("ANTHROPIC_WORKSPACE_ID", "").strip()
+    if workspace:
+        headers["anthropic-workspace-id"] = workspace
+    return anthropic.Anthropic(default_headers=headers or None)
+
+
 # ---------------------------------------------------------------- database
 def init_db(path: str = DB_PATH) -> None:
     with sqlite3.connect(path) as conn:
@@ -257,10 +268,8 @@ def send_alert(job: dict, ev: dict) -> None:
 
 # ---------------------------------------------------------------- pipeline
 def main() -> None:
-    import anthropic
-
     init_db()
-    client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY
+    client = make_client()  # reads ANTHROPIC_API_KEY (+ optional ANTHROPIC_WORKSPACE_ID)
 
     print("[*] Fetching job listings...")
     new_jobs = filter_new_jobs(fetch_all_jobs())
